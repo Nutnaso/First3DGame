@@ -1,19 +1,31 @@
 extends Node3D
 
-#@onready var sun = $DirectionalLight3D
-#@onready var player = $player
-#
-#
-#var timer := 0.0
-#var interval := 1/60 # 0.5 วินาที
-#var rotation_speed := deg_to_rad(1) # หมุนทีละ 10 องศาทุก 0.5 วินาที
-#
-#func _process(delta):
-	#timer += delta
-	#if timer >= interval:
-		#timer = 0
-		#sun.rotate_x(rotation_speed)
-		## Clamp ค่าการหมุนให้อยู่ในช่วง 0 - 2*PI (0 - 360 องศา)
-		#var rot = sun.rotation
-		#rot.x = fmod(rot.x, TAU) # TAU = 2 * PI
-		#sun.rotation = rot
+@export var mob_scene: PackedScene
+@onready var player = $Player
+@onready var sun = $DirectionalLight3D
+
+var timer := 0.0
+var interval := 1/60
+var rotation_speed := deg_to_rad(1)
+
+func _process(delta):
+	$MainFloor/Boss/AnimationPlayer.play("CharacterArmature|Flying_Idle")
+	timer += delta
+	if timer >= interval:
+		timer = 0
+		sun.rotate_x(rotation_speed)
+		var rot = sun.rotation
+		rot.x = fmod(rot.x, TAU)
+		sun.rotation = rot
+
+func _on_mob_timer_timeout():
+	var mob = mob_scene.instantiate()
+	mob.squashed.connect($UserInterface/ScoreLabel._on_mob_squashed.bind())
+	var mob_spawn_location = get_node("SpawnPath/SpawnLocation")
+	mob_spawn_location.progress_ratio = randf()
+	var player_position = player.position
+	mob.initialize(mob_spawn_location.position, player_position)
+	add_child(mob)
+
+func _on_player_hit():
+	$MobTimer.stop()

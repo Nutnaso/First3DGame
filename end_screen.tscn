@@ -1,0 +1,20 @@
+[gd_scene load_steps=2 format=3 uid="uid://bkdcowa2dthjl"]
+
+[ext_resource type="PackedScene" uid="uid://tn34lc8r2ap5" path="res://art/Dead Trees.glb" id="1_my301"]
+
+[node name="EndScreen" type="Node3D"]
+
+[node name="Root Scene" parent="." instance=ExtResource("1_my301")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -53.0261, 0, -0.145297)
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.91027, 5.05048)
+fov = 86.1896
+
+[node name="Label" type="Label" parent="."]
+offset_left = 476.0
+offset_top = 86.0
+offset_right = 516.0
+offset_bottom = 135.0
+text = "DIE
+"

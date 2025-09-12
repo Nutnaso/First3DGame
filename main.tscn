@@ -1,21 +1,45 @@
-[gd_scene load_steps=5 format=3 uid="uid://be0gt034du6va"]
+[gd_scene load_steps=15 format=3 uid="uid://be0gt034du6va"]
 
 [ext_resource type="Script" uid="uid://dykek5eexefpe" path="res://main.gd" id="1_0xm2m"]
 [ext_resource type="PackedScene" uid="uid://btpjf5kb1sy1o" path="res://player.tscn" id="2_0xm2m"]
+[ext_resource type="PackedScene" uid="uid://cnc1aa5qecjpq" path="res://mob.tscn" id="2_h2yge"]
+[ext_resource type="PackedScene" uid="uid://tn34lc8r2ap5" path="res://art/Dead Trees.glb" id="3_7mycd"]
+[ext_resource type="FontFile" uid="uid://u5l3ovc1lxde" path="res://art/paaymaay_regular.ttf" id="4_1bvp3"]
+[ext_resource type="PackedScene" uid="uid://c2phk5664xga" path="res://art/Glub Evolved.glb" id="4_272bh"]
+[ext_resource type="PackedScene" uid="uid://chbb4gqegvcmf" path="res://art/Grass.glb" id="5_5vw27"]
+[ext_resource type="Script" uid="uid://b2eu02bf2r1n2" path="res://score_label.gd" id="5_lquwl"]
+[ext_resource type="PackedScene" uid="uid://dr5cncd0855t3" path="res://art/Gravestone Cross.glb" id="6_kek77"]
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ig7tw"]
-size = Vector3(40, 0.5, 40)
+size = Vector3(160, 0.5, 160)
 
 [sub_resource type="BoxMesh" id="BoxMesh_7dm0k"]
-size = Vector3(40, 0.5, 40)
+size = Vector3(160, 0.5, 160)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_0xm2m"]
+albedo_color = Color(1, 0, 0, 1)
+
+[sub_resource type="CylinderMesh" id="CylinderMesh_0xm2m"]
+material = SubResource("StandardMaterial3D_0xm2m")
+
+[sub_resource type="Curve3D" id="Curve3D_h2yge"]
+closed = true
+_data = {
+"points": PackedVector3Array(0, 0, 0, 0, 0, 0, -16.0859, 0, -9.11039, 0, 0, 0, 0, 0, 0, 14.817, 0, -8.93278, 0, 0, 0, 0, 0, 0, 14.9946, 0, 9.18273, 0, 0, 0, 0, 0, 0, -16.0859, 0, 9.00513),
+"tilts": PackedFloat32Array(0, 0, 0, 0)
+}
+point_count = 4
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_0xm2m")
+mob_scene = ExtResource("2_h2yge")
 
 [node name="MainFloor" type="Node3D" parent="."]
 
 [node name="Floor" type="StaticBody3D" parent="MainFloor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1, 0)
+collision_layer = 4
+collision_mask = 0
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="MainFloor/Floor"]
 shape = SubResource("BoxShape3D_ig7tw")
@@ -23,6 +47,39 @@ shape = SubResource("BoxShape3D_ig7tw")
 [node name="MeshInstance3D" type="MeshInstance3D" parent="MainFloor/Floor"]
 mesh = SubResource("BoxMesh_7dm0k")
 skeleton = NodePath("../..")
+
+[node name="Root Scene" parent="MainFloor" instance=ExtResource("3_7mycd")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -55, 0, 9)
+
+[node name="Root Scene2" parent="MainFloor" instance=ExtResource("3_7mycd")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, -12, -1, 51)
+
+[node name="Root Scene3" parent="MainFloor" instance=ExtResource("3_7mycd")]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 14, -1, 51)
+
+[node name="Boss" parent="MainFloor" instance=ExtResource("4_272bh")]
+transform = Transform3D(4, 0, 0, 0, 4, 0, 0, 0, 4, 0, -1, -10)
+
+[node name="Grass" parent="MainFloor" instance=ExtResource("5_5vw27")]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, -41, -1, -41)
+
+[node name="Grass2" parent="MainFloor" instance=ExtResource("5_5vw27")]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 35, -1, -41)
+
+[node name="Grass3" parent="MainFloor" instance=ExtResource("5_5vw27")]
+transform = Transform3D(-6.77476, 0, 18.8176, 0, 20, 0, -18.8176, 0, -6.77476, -1, -1, -41)
+
+[node name="Grass4" parent="MainFloor" instance=ExtResource("5_5vw27")]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, -41, -1, -15)
+
+[node name="Grass5" parent="MainFloor" instance=ExtResource("5_5vw27")]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 39, -1, -17)
+
+[node name="Gravestone Cross" parent="MainFloor" instance=ExtResource("6_kek77")]
+transform = Transform3D(5.78064, 0, 19.1464, 0, 20, 0, -19.1464, 0, 5.78064, -12, 0, -14)
+
+[node name="Gravestone Cross2" parent="MainFloor" instance=ExtResource("6_kek77")]
+transform = Transform3D(20, 0, 0, 0, 20, 0, 0, 0, 20, 12, 0, -14)
 
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, 0, 9, 1.07324e-07)
@@ -33,4 +90,58 @@ light_energy = 0.704
 [node name="Marker3D" type="Marker3D" parent="."]
 
 [node name="Camera3D" type="Camera3D" parent="Marker3D"]
-transform = Transform3D(1, 0, 0, 0, 1.19249e-08, 1, 0, -1, 1.19249e-08, 7, 12, 5.96244e-08)
+transform = Transform3D(1, 0, 0, 0, 0.909961, 0.414693, 0, -0.414693, 0.909961, 0, 10, 12)
+
+[node name="Cylinders" type="Node3D" parent="."]
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Cylinders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, 9)
+mesh = SubResource("CylinderMesh_0xm2m")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="Cylinders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, -9)
+mesh = SubResource("CylinderMesh_0xm2m")
+skeleton = NodePath("../MeshInstance3D")
+
+[node name="MeshInstance3D3" type="MeshInstance3D" parent="Cylinders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -16, 0, 9)
+mesh = SubResource("CylinderMesh_0xm2m")
+skeleton = NodePath("../MeshInstance3D")
+
+[node name="MeshInstance3D4" type="MeshInstance3D" parent="Cylinders"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 15, 0, -9)
+mesh = SubResource("CylinderMesh_0xm2m")
+skeleton = NodePath("../MeshInstance3D")
+
+[node name="SpawnPath" type="Path3D" parent="."]
+curve = SubResource("Curve3D_h2yge")
+
+[node name="SpawnLocation" type="PathFollow3D" parent="SpawnPath"]
+transform = Transform3D(-0.00574721, 0, -0.999983, 0, 1, 0, 0.999983, 0, -0.00574721, -16.0859, 0, -9.11039)
+
+[node name="MobTimer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[node name="UserInterface" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 1281.0
+offset_bottom = 720.0
+
+[node name="ScoreLabel" type="Label" parent="UserInterface"]
+layout_mode = 0
+offset_left = 497.0
+offset_top = 24.0
+offset_right = 804.0
+offset_bottom = 85.0
+theme_override_fonts/font = ExtResource("4_1bvp3")
+theme_override_font_sizes/font_size = 80
+text = "Sanity : 10"
+script = ExtResource("5_lquwl")
+player_scene = ExtResource("2_0xm2m")
+
+[connection signal="die" from="Player" to="UserInterface/ScoreLabel" method="_on_player_die"]
+[connection signal="hit" from="Player" to="." method="_on_player_hit"]
+[connection signal="hit" from="Player" to="UserInterface/ScoreLabel" method="_on_player_hit"]
+[connection signal="timeout" from="MobTimer" to="." method="_on_mob_timer_timeout"]
