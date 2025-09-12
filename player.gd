@@ -18,7 +18,7 @@ signal die                # ส่งเมื่อ Player ตาย
 @export var blink_threshold: float = 0.2
 @export var blink_speed: float = 0.1
 
-@export var max_health: int = 10
+@export var max_health: int = 1
 var current_health: int
 
 # -------------------------------
@@ -147,6 +147,8 @@ func heal(amount: int) -> void:
 
 func _die() -> void:
 	die.emit()
+	get_tree().change_scene_to_file("res://end_screen.tscn")
+
 	queue_free()
 
 # -------------------------------
