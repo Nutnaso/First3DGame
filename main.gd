@@ -46,6 +46,17 @@ func _process(delta):
 		last_beat = current_beat
 		print("DEBUG: Bar %d, Beat %d" % [current_bar, current_beat])
 		_check_bar_events()
+		
+		
+		
+	if current_bar >= 89 and current_bar < 93 :
+		sun.rotate_x(deg_to_rad(5))
+		
+		
+		
+	if current_bar >= 93 and current_bar < 101 :
+		sun.rotate_x(deg_to_rad(45/2))
+			
 
 	# อัปเดตกล้องสั่น
 	_update_camera_shake(delta)
@@ -77,33 +88,32 @@ func _check_bar_events():
 	
 	if current_bar >= 51 and current_bar < 53:
 		sun.rotate_x(deg_to_rad(5))
-		camera_shake(0.03, bar_duration)
+		camera_shake(0.07, bar_duration)
 		spawn_mobs_random_for_beat([1,1,1,1])
 		
 		
 		
 	if current_bar >= 53 and current_bar < 85:
-		camera_shake(0.05, bar_duration)
+		camera_shake(0.1, bar_duration)
 		special_object.visible = true
-		$MainFloor/Boss/AnimationPlayer.play("CharacterArmature|Headbutt")
+		$MainFloor/Boss/AnimationPlayer.play("CharacterArmature|Yes")
 		spawn_mobs_random_for_beat([0,1,0,1])
 		
 		
 	if current_bar == 85:
 		special_object.visible = false
 		$MainFloor.visible = false
-		$MainFloor/Boss/AnimationPlayer.play("CharacterArmature|Headbutt")
 		
 		
 	if current_bar == 88:
-		sun.rotate_x(deg_to_rad(90))
+		sun.rotate_x(deg_to_rad(135))
 		camera_shake(2, 0.1)
 		special_object.visible = true
 		$MainFloor.visible = true
 		$MainFloor/Boss/AnimationPlayer.play("CharacterArmature|Headbutt")
 	
 	
-	if current_bar >= 88 and current_bar < 93 :
+	if current_bar >= 89 and current_bar < 93 :
 		camera_shake(0.1, bar_duration)
 		$MainFloor/Boss/AnimationPlayer.play("CharacterArmature|Fast_Flying")
 		spawn_mobs_random_for_beat([1,1,1,1])
